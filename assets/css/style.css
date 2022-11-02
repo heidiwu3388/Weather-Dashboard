@@ -159,6 +159,7 @@
     border: 3px solid var(--dark);
     margin: 0 0 15px 0;
     border-radius: var(--border-radius);
+    padding: 5px;
 }
 .forecast {
     color: var(--primary);
@@ -218,8 +219,8 @@
     align-items: stretch;
   }
   
-  .align-end {
-    align-items: flex-end;
+  .align-start {
+    align-items: flex-start;
   }
   
   .align-center {
