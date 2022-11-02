@@ -23,7 +23,7 @@
     </header>
 
     <main class="flex-row justify-space-between">
-      <div class="col-12 col-sm-3 col-md-4">
+      <div class="col-12 col-md-4">
         <div class="card">
           <form id="user-form">
             <label class="form-label" for="cityname">Search for a City:</label>
@@ -45,22 +45,13 @@
         </div>
       </div>
 
-      <div class="col-12 col-sm-9 col-md-8 flex-row result-container">
-        <!-- dynamic HTML goes here -->
-
-        <div class="col-12 flex-row justify-space-between" id="fc-container">
+      <div class="col-12 col-md-8 flex-row" id="result-container">
+        <div class="col-12 flex-row justify-space-between" id="current-container">
           <!-- dynamic HTML goes here -->
-          <!-- <div class="forecast">testing 1</div>
-          <div class="forecast">testing 2</div>
-          <div class="forecast">testing 3</div>
-          <div class="forecast">testing 4</div>
-          <div class="forecast">testing 5</div> -->
         </div>
-
-        <!-- <h2 class="subtitle">
-          Showing Repositories for: <span id="repo-search-term"></span>
-        </h2>
-        <div id="repos-container" class="list-group"></div> -->
+        <div class="col-12 flex-row justify-space-between" id="forecast-container">
+          <!-- dynamic HTML goes here -->
+        </div>
       </div>
     </main>
 
