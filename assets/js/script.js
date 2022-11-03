@@ -1,11 +1,14 @@
-//
-const apiKey = "acb86fe319a24c757eca1a7db0fec11e";
+// select elements and store them in variables
 let cityFormEl = document.querySelector("#city-form");
 let cityInputEl = document.querySelector("#cityname");
 let currentContainerEl = document.querySelector("#current-container");
 let forecastContainerEl = document.querySelector("#forecast-container");
 let cityListEl = document.querySelector("#city-list");
+// keep the API key in a const variable
+const apiKey = "acb86fe319a24c757eca1a7db0fec11e";
+// declare a varible to store the city search history
 let cities = [];
+
 
 function renderCityHistoryList() {
   // get all cities from local storage
@@ -20,25 +23,29 @@ function renderCityHistoryList() {
   cityListEl.innerHTML = template;
 }
 
+// get 5-day forecast using the parameters lat (latitude) and lon (longitue)
 function getForecast(lat, lon) {
   // setup URL for 5-day forecast API
   let forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`;
+  // call the API
   fetch(forecastUrl)
     .then(function (response) {
-      console.log("forecast response: ", response);
       return response.json();
     })
     .then(function (data) {
-      console.log("forecast data: ", data);
-
       let template = ``;
+      // since the list has 40 records, 8 records for each day
+      // the first one to pick is the 8th record which is for the day after today
+      // then get data for every 8 records
       for (let i = 7; i < data.list.length; i += 8) {
+        // get the required data
         let unixDate = data.list[i].dt;
         let date = moment(unixDate, "X").format("MM/DD/YYYY");
         let icon = data.list[i].weather[0].icon;
         let temp = data.list[i].main.temp;
         let wind = data.list[i].wind.speed;
         let humidity = data.list[i].main.humidity;
+        // build the HTML to display 5-day forecast
         template += `
             <div class="flex-column align-start justify-space-around forecast">
                 <h3>${date}</h3>
@@ -56,21 +63,18 @@ function getForecast(lat, lon) {
 function getWeather(city) {
   // setup URL for current weather
   let currentUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
-
   // GET current weather from the API url
   fetch(currentUrl)
     .then(function (response) {
       console.log("current response: ", response);
+      // error handling
       if (response.status !== 200) {
-        // display error message
         alert(`${city} not found`);
         return;
       }
       return response.json();
     })
     .then(function (data) {
-      // error handling
-      console.log("current data: ", data);
       // store all information required in variables
       let cityName = data.name;
       let today = moment().format("MM/DD/YYYY");
@@ -82,11 +86,10 @@ function getWeather(city) {
       // get geographical coordinate for the city
       let latitude = data.coord.lat;
       let longitude = data.coord.lon;
-
       // use coordinate of the city to get 5-day forecast
       getForecast(latitude, longitude);
 
-      // display current weather of the city
+      // build the HTML to display current weather of the city
       let template = `
         <div class="col-12 flex-column align-start justify-space-around current-weather">
         <h1>${cityName} (${today})</h1>
@@ -113,7 +116,6 @@ function getWeather(city) {
 function getWeatherByInput(event) {
   // prvent default for form input
   event.preventDefault();
-
   // get city name from user input, return if no input
   let cityInput = cityInputEl.value.trim();
   if (cityInput.length === 0) {
@@ -122,7 +124,6 @@ function getWeatherByInput(event) {
   }
   // clear city input
   cityInputEl.value = "";
-
   // get weather of the city input
   getWeather(cityInput);
 }

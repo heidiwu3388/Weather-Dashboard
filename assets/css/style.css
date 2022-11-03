@@ -5,7 +5,6 @@
   --tertiary: #00B4D8;
   --light-dark: #0077B6;
   --dark: #03045E;
-
   --border-radius: 0.3rem;
 }
 
@@ -14,8 +13,7 @@
 }
 
 body {
-  /* background-color: var(--primary); */
-  background-image: linear-gradient(var(--secondary), var(--very-light));
+  background-image: linear-gradient(var(--very-light), var(--secondary));
   margin: 0;
   padding: 0;
   font-family: "IBM Plex Sans", sans-serif;
@@ -83,61 +81,18 @@ p {
 .hero {
   padding: 1% 4%;
   background-image: linear-gradient(to right, var(--dark), var(--light-dark) );
-  color: var(--very-light);
   display: flex;
   justify-content: center;
 }
 
-.app-title {
-  font-size: 3rem;
-  color: var(--primary);
-}
-
-.list-group {
-  padding: 0;
-  list-style: none;
-}
-
-.list-item {
-  margin-bottom: 10px;
-  padding: 1.5%;
-  border-radius: var(--border-radius);
-  background-color: var(--light-dark);
-  color: var(--primary);
-  text-decoration: none;
-}
-
-.list-item:hover {
-  background-color: var(--dark);
-}
-
-.status-icon {
-  padding: 2px 5px;
-  margin: 0 5px;
-  background-color: rgba(255, 255, 255, 1);
-  border-radius: var(--border-radius);
-}
-
-.icon-danger {
-  color: rgb(255, 70, 70);
-}
-
-.icon-success {
-  color: rgb(29, 153, 255);
+.hero h1{
+    color: var(--very-light);
 }
 
 /* CARDS */
 .card {
   margin: 0 0 30px 0;
-  /* border: 3px solid var(--dark); */
   border-radius: var(--border-radius);
-}
-
-.card-header {
-  color: var(--primary);
-  background-color: var(--dark);
-  padding: 2.5%;
-  border-radius: calc(0.18rem - 1px) calc(0.18rem - 1px) 0 0;
 }
 
 /* FORM */
@@ -170,8 +125,8 @@ p {
   padding: 10px 15px;
   background-color: var(--very-light);
 }
+
 .forecast {
-  /* color: var(--primary); */
   background-image: linear-gradient(var(--light-dark), var(--dark));
   margin: 1% 1% 0 0;
   padding: 15px;
@@ -188,6 +143,8 @@ p {
   color: var(--primary);
   font-size: 1.2rem;
 }
+
+
 /* HEIGHT / WIDTH UTILS */
 .min-100-vh {
   min-height: 100vh;
