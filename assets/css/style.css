@@ -1,9 +1,11 @@
 :root {
-  --primary: #ccd9da;
-  --secondary: #9caea9;
-  --tertiary: #788585;
-  --light-dark: #6f6866;
-  --dark: #38302e;
+  --very-light: rgb(255, 255, 255);  
+  --primary: #CAF0F8;
+  --secondary: #90E0EF;
+  --tertiary: #00B4D8;
+  --light-dark: #0077B6;
+  --dark: #03045E;
+
   --border-radius: 0.3rem;
 }
 
@@ -12,7 +14,8 @@
 }
 
 body {
-  background-color: var(--primary);
+  /* background-color: var(--primary); */
+  background-image: linear-gradient(var(--secondary), var(--very-light));
   margin: 0;
   padding: 0;
   font-family: "IBM Plex Sans", sans-serif;
@@ -50,25 +53,37 @@ p {
   display: block;
   margin: 10px 0;
   border-radius: var(--border-radius);
-  color: var(--primary);
   border: none;
   outline: none;
-  background-color: var(--light-dark);
-  box-shadow: 3px 3px var(--dark);
+  color: var(--dark);
+  background-color: var(--secondary);
+  box-shadow: 3px 3px var(--light-dark);
   transform: translate(-1px, -1px);
 }
 
 .btn:hover {
-  color: var(--primary);
-  background-color: var(--tertiary);
-  transform: translate(0, 0);
-  box-shadow: 2px 2px var(--dark);
+    color: var(--primary);
+    background-color: var(--tertiary);
+    transform: translate(0, 0);
+    box-shadow: 2px 2px var(--dark);
+}
+
+#btn-search {
+    color: var(--primary);
+    background-color: var(--light-dark);
+    box-shadow: 2px 2px var(--dark);
+}
+
+#btn-search:hover {
+    color: var(--dark);
+    background-color: var(--tertiary);
+    box-shadow: 2px 2px var(--light-dark);
 }
 
 .hero {
   padding: 1% 4%;
-  background-color: var(--dark);
-  color: var(--primary);
+  background-image: linear-gradient(to right, var(--dark), var(--light-dark) );
+  color: var(--very-light);
   display: flex;
   justify-content: center;
 }
@@ -145,17 +160,19 @@ p {
   font-size: 1.2rem;
   border: 2px solid var(--light-dark);
   border-radius: var(--border-radius);
+  background-color: var(--very-light);
 }
 
 .current-weather {
-  border: 3px solid var(--dark);
+  border: 3px solid var(--light-dark);
   margin: 0 0 15px 0;
   border-radius: var(--border-radius);
   padding: 10px 15px;
+  background-color: var(--very-light);
 }
 .forecast {
   /* color: var(--primary); */
-  background-color: var(--dark);
+  background-image: linear-gradient(var(--light-dark), var(--dark));
   margin: 1% 1% 0 0;
   padding: 15px;
   width: 98%;
