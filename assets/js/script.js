@@ -1,4 +1,4 @@
-// 
+//
 const apiKey = "acb86fe319a24c757eca1a7db0fec11e";
 let cityFormEl = document.querySelector("#city-form");
 let cityInputEl = document.querySelector("#cityname");
@@ -12,13 +12,13 @@ function renderCityHistoryList() {
   cities = JSON.parse(localStorage.getItem("cities") || "[]");
   // built HTML for buttons of the cities
   let template = ``;
-  for (let i=0; i<cities.length; i++) {
+  for (let i = 0; i < cities.length; i++) {
     template += `
       <button class="btn">${cities[i]}</button>
     `;
   }
   cityListEl.innerHTML = template;
-};
+}
 
 function getForecast(lat, lon) {
   // setup URL for 5-day forecast API
@@ -57,13 +57,19 @@ function getWeather(city) {
   // setup URL for current weather
   let currentUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
 
-  // GET data from the API url
+  // GET current weather from the API url
   fetch(currentUrl)
     .then(function (response) {
       console.log("current response: ", response);
+      if (response.status !== 200) {
+        // display error message
+        alert(`${city} not found`);
+        return;
+      }
       return response.json();
     })
     .then(function (data) {
+      // error handling
       console.log("current data: ", data);
       // store all information required in variables
       let cityName = data.name;
@@ -94,7 +100,7 @@ function getWeather(city) {
       currentContainerEl.innerHTML = template;
 
       // add the current city to the array "cities" if it's not already there
-      if (!cities.includes(cityName)){
+      if (!cities.includes(cityName)) {
         cities.push(cityName);
       }
       // store updated cities to local storage
@@ -113,7 +119,7 @@ function getWeatherByInput(event) {
   if (cityInput.length === 0) {
     alert("Please input a city!");
     return;
-  };
+  }
   // clear city input
   cityInputEl.value = "";
 
@@ -122,13 +128,13 @@ function getWeatherByInput(event) {
 }
 
 function getWeatherByButton(event) {
-  if (event.target.matches("button")){
+  if (event.target.matches("button")) {
     // clear city input
     cityInputEl.value = "";
     // get weather of the city on the button
     getWeather(event.target.textContent);
-  };
-};
+  }
+}
 
 // *** start here ***
 renderCityHistoryList();
