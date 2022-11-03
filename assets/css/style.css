@@ -66,14 +66,13 @@ p {
 }
 
 #btn-search {
-    
-    /* width: 50%; */
-    color: var(--dark);
+  /* width: 50%; */
+  color: var(--dark);
   background-color: var(--light-dark);
 }
 
 #btn-search:hover {
-  color: var(--tertiary) ;  
+  color: var(--tertiary);
   background-color: var(--dark);
 }
 
@@ -166,21 +165,22 @@ p {
   padding: 10px 15px;
 }
 .forecast {
-    /* color: var(--primary); */
-    background-color: var(--dark);
-    margin: 15px 0 15px 0;
-    padding: 15px;
-    width: 49%;
+  /* color: var(--primary); */
+  background-color: var(--dark);
+  margin: 1% 1% 0 0;
+  padding: 15px;
+  width: 98%;
+  height: fit-content;
 }
 
 .forecast p {
-    color: var(--primary);
-    font-size: 0.8rem;
+  color: var(--primary);
+  font-size: 0.8rem;
 }
 
 .forecast h3 {
-    color: var(--primary);
-    font-size: 1.2rem;
+  color: var(--primary);
+  font-size: 1.2rem;
 }
 /* HEIGHT / WIDTH UTILS */
 .min-100-vh {
@@ -292,11 +292,14 @@ p {
   flex: 0 0 100%;
 }
 
+@media screen and (min-width: 400px) {
+  .forecast {
+    width: 49%;
+  }
+}
+
 /* col-sm */
 @media screen and (min-width: 576px) {
-  .forecast {
-    width: 19.5%;
-  }
   .col-sm-1 {
     flex: 0 0 calc(100% * 1 / 12 - 2%);
   }
@@ -348,6 +351,9 @@ p {
 
 /* col-md */
 @media screen and (min-width: 768px) {
+  .forecast {
+    width: 32%;
+  }
   .col-md-1 {
     flex: 0 0 calc(100% * 1 / 12 - 2%);
   }
@@ -399,6 +405,9 @@ p {
 
 /* col-lg */
 @media screen and (min-width: 992px) {
+    .forecast {
+        width: 19%;
+      }
   .col-lg-1 {
     flex: 0 0 calc(100% * 1 / 12 - 2%);
   }

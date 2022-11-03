@@ -3,6 +3,54 @@ let btnSearchEl = document.querySelector("#btn-search");
 let cityInputEl = document.querySelector("#cityname");
 let currentContainerEl = document.querySelector("#current-container");
 let forecastContainerEl = document.querySelector("#forecast-container");
+let cityListEl = document.querySelector("#city-list");
+var cities = [];
+
+function renderCityHistoryList() {
+  cities = JSON.parse(localStorage.getItem("cities") || "[]");
+  console.log("cities inside render: ", cities);
+  
+  let template = ``;
+  for (let i=0; i<cities.length; i++) {
+    template += `
+      <button class="btn">${cities[i]}</button>
+    `;
+  }
+  cityListEl.innerHTML = template;
+};
+
+function getForecast(lat, lon) {
+  // setup URL for 5-day forecast API
+  let forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`;
+  fetch(forecastUrl)
+    .then(function (response) {
+      console.log("forecast response: ", response);
+      return response.json();
+    })
+    .then(function (data) {
+      console.log("forecast data: ", data);
+
+      let template = ``;
+      for (let i = 7; i < data.list.length; i += 8) {
+        let unixDate = data.list[i].dt;
+        let date = moment(unixDate, "X").format("MM/DD/YYYY");
+        let icon = data.list[i].weather[0].icon;
+        let temp = data.list[i].main.temp;
+        let wind = data.list[i].wind.speed;
+        let humidity = data.list[i].main.humidity;
+        template += `
+            <div class="flex-column align-start justify-space-around forecast">
+                <h3>${date}</h3>
+                <img src="http://openweathermap.org/img/w/${icon}.png" alt="weather icon"</img>
+                <p>Temp: ${temp} F</p>
+                <p>Wind: ${wind} MPH</p>
+                <p>Humidity: ${humidity}%</p>
+            </div>
+        `;
+      }
+      forecastContainerEl.innerHTML = template;
+    });
+}
 
 function getWeather(city) {
   // setup URL for current weather
@@ -43,44 +91,16 @@ function getWeather(city) {
         <h2>5-Day Forecast:</h2>
       `;
       currentContainerEl.innerHTML = template;
-    });
-}
 
-function getForecast(lat, lon) {
-  console.log("latitude : ", lat);
-  console.log("longitude : ", lon);
-
-  // setup URL for 5-day forecast API
-  let forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`;
-  fetch(forecastUrl)
-    .then(function (response) {
-      console.log("forecast response: ", response);
-      return response.json();
-    })
-    .then(function (data) {
-      console.log("forecast data: ", data);
-      console.log("data.list.length: ", data.list.length);
-
-      let template = ``;
-      for (let i = 7; i < data.list.length; i += 8) {
-        console.log("i: ", i);
-        let unixDate = data.list[i].dt;
-        let date = moment(unixDate, "X").format("MM/DD/YYYY");
-        let icon = data.list[i].weather[0].icon;
-        let temp = data.list[i].main.temp;
-        let wind = data.list[i].wind.speed;
-        let humidity = data.list[i].main.humidity;
-        template += `
-            <div class="flex-column align-start justify-space-around forecast">
-                <h3>${date}</h3>
-                <img src="http://openweathermap.org/img/w/${icon}.png" alt="weather icon"</img>
-                <p>Temp: ${temp} F</p>
-                <p>Wind: ${wind} MPH</p>
-                <p>Humidity: ${humidity}%</p>
-            </div>
-        `;
+      // add the current city to the array "cities" if it's not already there
+      if (!cities.includes(cityName)){
+        cities.push(cityName);
       }
-      forecastContainerEl.innerHTML = template;
+      console.log(cities);
+      // store updated cities to local storage
+      localStorage.setItem("cities", JSON.stringify(cities));
+      // render city history list for display
+      renderCityHistoryList();
     });
 }
 
@@ -102,4 +122,5 @@ function searchCityWeather(event) {
   getWeather(cityInput);
 }
 
+renderCityHistoryList();
 btnSearchEl.addEventListener("click", searchCityWeather);
