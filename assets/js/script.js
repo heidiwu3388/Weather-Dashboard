@@ -1,15 +1,16 @@
+// 
 const apiKey = "acb86fe319a24c757eca1a7db0fec11e";
-let btnSearchEl = document.querySelector("#btn-search");
+let cityFormEl = document.querySelector("#city-form");
 let cityInputEl = document.querySelector("#cityname");
 let currentContainerEl = document.querySelector("#current-container");
 let forecastContainerEl = document.querySelector("#forecast-container");
 let cityListEl = document.querySelector("#city-list");
-var cities = [];
+let cities = [];
 
 function renderCityHistoryList() {
+  // get all cities from local storage
   cities = JSON.parse(localStorage.getItem("cities") || "[]");
-  console.log("cities inside render: ", cities);
-  
+  // built HTML for buttons of the cities
   let template = ``;
   for (let i=0; i<cities.length; i++) {
     template += `
@@ -96,7 +97,6 @@ function getWeather(city) {
       if (!cities.includes(cityName)){
         cities.push(cityName);
       }
-      console.log(cities);
       // store updated cities to local storage
       localStorage.setItem("cities", JSON.stringify(cities));
       // render city history list for display
@@ -104,7 +104,7 @@ function getWeather(city) {
     });
 }
 
-function searchCityWeather(event) {
+function getWeatherByInput(event) {
   // prvent default for form input
   event.preventDefault();
 
@@ -113,14 +113,24 @@ function searchCityWeather(event) {
   if (cityInput.length === 0) {
     alert("Please input a city!");
     return;
-  }
-
+  };
   // clear city input
   cityInputEl.value = "";
 
-  // get current weather of the city input
+  // get weather of the city input
   getWeather(cityInput);
 }
 
+function getWeatherByButton(event) {
+  if (event.target.matches("button")){
+    // clear city input
+    cityInputEl.value = "";
+    // get weather of the city on the button
+    getWeather(event.target.textContent);
+  };
+};
+
+// *** start here ***
 renderCityHistoryList();
-btnSearchEl.addEventListener("click", searchCityWeather);
+cityFormEl.addEventListener("submit", getWeatherByInput);
+cityListEl.addEventListener("click", getWeatherByButton);
