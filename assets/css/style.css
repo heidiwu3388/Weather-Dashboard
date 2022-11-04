@@ -5,6 +5,10 @@
   --tertiary: #00B4D8;
   --light-dark: #0077B6;
   --dark: #03045E;
+  --grey1: #999999;
+  --grey2: #777777;
+  --grey3: #555555;
+  --grey4: #333333;
   --border-radius: 0.3rem;
 }
 
@@ -53,17 +57,17 @@ p {
   border-radius: var(--border-radius);
   border: none;
   outline: none;
-  color: var(--dark);
-  background-color: var(--secondary);
-  box-shadow: 3px 3px var(--light-dark);
+  color: var(--primary);
+  background-color: var(--grey2);
+  box-shadow: 3px 3px var(--grey4);
   transform: translate(-1px, -1px);
 }
 
 .btn:hover {
     color: var(--primary);
-    background-color: var(--tertiary);
+    background-color: var(--grey1);
+    box-shadow: 2px 2px var(--grey3);
     transform: translate(0, 0);
-    box-shadow: 2px 2px var(--dark);
 }
 
 #btn-search {
@@ -73,9 +77,9 @@ p {
 }
 
 #btn-search:hover {
-    color: var(--dark);
+    color: var(--primary);
     background-color: var(--tertiary);
-    box-shadow: 2px 2px var(--light-dark);
+    box-shadow: 2px 2px var(--dark);
 }
 
 .hero {
