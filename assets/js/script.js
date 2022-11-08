@@ -49,7 +49,7 @@ function getForecast(lat, lon) {
         template += `
             <div class="flex-column align-start justify-space-around forecast">
                 <h3>${date}</h3>
-                <img src="http://openweathermap.org/img/w/${icon}.png" alt="weather icon"</img>
+                <img src="https://openweathermap.org/img/w/${icon}.png" alt="weather icon"</img>
                 <p>Temp: ${temp} F</p>
                 <p>Wind: ${wind} MPH</p>
                 <p>Humidity: ${humidity}%</p>
@@ -66,11 +66,10 @@ function getWeather(city) {
   // GET current weather from the API url
   fetch(currentUrl)
     .then(function (response) {
-      console.log("current response: ", response);
       // error handling
       if (response.status !== 200) {
         alert(`${city} not found`);
-        return;
+        throw new Error("city not found");
       }
       return response.json();
     })
@@ -93,7 +92,7 @@ function getWeather(city) {
       let template = `
         <div class="col-12 flex-column align-start justify-space-around current-weather">
         <h1>${cityName} (${today})</h1>
-        <img src="http://openweathermap.org/img/w/${icon}.png" alt="weather icon"</img>
+        <img src="https://openweathermap.org/img/w/${icon}.png" alt="weather icon"</img>
         <h3>Temp: ${temp} F</h3>
         <h3>Wind: ${wind} MPH </h3>
         <h3>Humidity: ${humidity}% </h3>
@@ -110,6 +109,9 @@ function getWeather(city) {
       localStorage.setItem("cities", JSON.stringify(cities));
       // render city history list for display
       renderCityHistoryList();
+    })
+    .catch(function(error){
+      console.log(error);
     });
 }
 
